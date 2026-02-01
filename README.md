@@ -31,6 +31,4 @@ The goal of this project was to implement a professional DevOps workflow for pro
 * **Security & IAM:** Managing GitHub Personal Access Tokens (PAT) and repository permissions.
 * **Git Hygiene:** Implementing `.gitignore` to prevent pushing large binary provider files (>600MB) to version control.
 
----
-**Engineer:** Shivsurya  
-**Mentor:** Ashutosh Bhakre Sir
+
