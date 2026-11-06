@@ -1,34 +1,44 @@
-# 🚀 AWS Infrastructure Automation with Terraform
+# AWS Infrastructure Examples with Terraform
 
-This repository contains **Infrastructure as Code (IaC)** for deploying a cloud environment on **AWS** using **Terraform**, managed through **Google Cloud Shell**.
+This repository contains small Terraform examples for provisioning AWS resources. Each file demonstrates a different resource; these are learning examples, not a complete production-ready infrastructure stack.
 
+## Examples in this repository
 
+| File | What it demonstrates | AWS region in the configuration |
+| --- | --- | --- |
+| `aws-ec2-instance` | An EC2 `t2.micro` instance using a specified Ubuntu AMI and an existing subnet ID | `ap-south-1` |
+| `aws-iam-user` | Creating an IAM user named `username` | `us-east-1` |
+| `aws-s3-bucket` | Creating an S3 bucket named `osho-rajnish` with Development tags | `us-east-1` |
+| `aws-vpc` | Creating a VPC with CIDR `10.0.0.0/16` and DNS support enabled | `us-east-1` |
 
-## 🎯 Project Overview
-The goal of this project was to implement a professional DevOps workflow for provisioning cloud resources. By using Terraform, I successfully automated the deployment of a compute instance and storage, ensuring the environment is repeatable and version-controlled.
+## Important: prepare an example before running it
 
-## 🛠️ Tech Stack
-* **IaC Tool:** Terraform (HCL)
-* **Cloud Provider:** AWS (Region: ap-south-1 Mumbai)
-* **Environment:** Google Cloud Shell
-* **Version Control:** Git & GitHub
+The files currently do not have the `.tf` extension, which Terraform requires when loading configuration. Run one example at a time: copy the desired file into a separate working directory and rename it with a `.tf` extension (for example, `main.tf`). Do not combine these examples as-is: they use different AWS regions and are intended to be independent.
 
-## 🏗️ Resources Managed
-* **EC2 Instance:** Ubuntu 24.04 LTS for compute workloads.
-* **S3 Bucket:** Scalable object storage for project data.
-* **VPC Networking:** Custom subnet engineering to resolve regional connectivity issues.
+Before applying an example:
 
-## 🔄 How to Use
-1. **Initialize:** `terraform init`
-2. **Plan:** `terraform plan`
-3. **Apply:** `terraform apply`
-4. **Destroy:** `terraform destroy`
+- Configure AWS credentials using your preferred secure method; do not commit credentials to this repository.
+- For the EC2 example, confirm that the AMI and subnet ID exist in your AWS account and in `ap-south-1`.
+- For the S3 example, replace `osho-rajnish` with a globally unique bucket name that you are authorized to use.
+- Review the IAM user and VPC settings, then check the plan before creating resources.
 
+## Run an example
 
+From the working directory containing the renamed `.tf` file:
 
-## ✅ Key Learning Outcomes
-* **Multi-Cloud Management:** Operating AWS resources via GCP-hosted tools.
-* **Security & IAM:** Managing GitHub Personal Access Tokens (PAT) and repository permissions.
-* **Git Hygiene:** Implementing `.gitignore` to prevent pushing large binary provider files (>600MB) to version control.
+```bash
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
 
+When you no longer need the resources, review the proposed changes and run `terraform destroy` from that same directory. AWS resources may incur charges; check the plan and your AWS billing before applying.
 
+## Key learning outcomes
+
+- Define AWS resources as infrastructure-as-code using Terraform and the AWS provider.
+- Configure provider regions and understand that resource identifiers, such as AMI and subnet IDs, are region- and account-specific.
+- Use `terraform init`, `validate`, and `plan` to prepare and inspect changes before applying them.
+- Recognize practical resource constraints, including globally unique S3 bucket names and the need to manage AWS credentials securely.
+- Understand that these examples are independent starting points and need review and configuration for a particular AWS account before use.
